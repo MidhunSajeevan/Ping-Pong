@@ -11,7 +11,7 @@ public class Ball : MonoBehaviour
         _position = transform.position;
         
         _rigidbody = GetComponent<Rigidbody2D>();
-        LounchBall();
+       
     }
 
    
