@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     float count = 4; // Countdown timer duration
     public int GameCount = 1; // Current round count
-    int scoreDecrement = 100; // Amount to decrement player health when scoring
+    int scoreDecrement = 10; // Amount to decrement player health when scoring
 
     public UnityAction OnGameOver; // Event invoked when game over
     public UnityAction OnAnyPlayerDead; // Event invoked when any player dies
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
         GameCount++;
         if (GameCount == 4)
         {
-
+            PersentageCalculation(GameCount-1);
             OnGameOver.Invoke();
             Debug.Log("Game Over");
         }
@@ -155,8 +155,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine(CountDown(count));
             Debug.Log(GameCount.ToString() + " Round");
             roundText.text = "Round " + GameCount.ToString();
-           
 
+            PersentageCalculation(GameCount-1);
 
             EnableUI();
             
@@ -208,5 +208,84 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+
+    public void PersentageCalculation(int GameCount)
+    {
+        switch(GameCount)
+        {
+            case 0: if(_playerOneScore == _playerTwoScore)
+                {
+                    roundWinnerText.text = $"Both of you are Round {GameCount} Winners" ;
+                    roundScoreText.text = $"Player 1 and 2 has {50}% chance to win"; 
+
+
+                }
+                break;
+            case 1:
+                if (_playerOneScore == _playerTwoScore)
+                {
+                    roundWinnerText.text = $"Both of you are Round {GameCount} Winners";
+                    roundScoreText.text = $"Player 1 and 2 has {50}% chance to win";
+
+
+                }else if(_playerOneScore > _playerTwoScore)
+                {
+                    roundWinnerText.text = $"Player 1 is the Round {GameCount} Winner";
+                    roundScoreText.text = $"Player 1 has {80}% and Player 2 has {50}% chance to win";
+
+                }
+                else
+                {
+
+                    roundWinnerText.text = $"Player 2 is the Round {GameCount} Winner";
+                    roundScoreText.text = $"Player 2 has {80}% and Player 1 has {50}% chance to win";
+                }
+                break;
+                case 2:
+                if (_playerOneScore == _playerTwoScore)
+                {
+                    roundWinnerText.text = $"Both of you are {GameCount} Winners";
+                    roundScoreText.text = $"Player 1 and 2 had {50}% chance to win";
+
+
+                }
+                else if (_playerOneScore > _playerTwoScore)
+                {
+                    roundWinnerText.text = $"Player 1 is the {GameCount} round Winner";
+                    roundScoreText.text = $"Player 1 has {100}% and Player 2 has {20}% chance to win";
+
+                }
+                else
+                {
+
+                    roundWinnerText.text = $"Player 2 is the {GameCount} round Winner";
+                    roundScoreText.text = $"Player 2 has {100}% and Player 1 has {20}% chance to win";
+                }
+                break;
+            default:
+                if (_playerOneScore == _playerTwoScore)
+                {
+                    roundWinnerText.text = $"Both of you are Winners";
+                    roundScoreText.text = $"Player 1 and 2 had {50}% chance to win";
+
+
+                }
+                else if (_playerOneScore > _playerTwoScore)
+                {
+                    roundWinnerText.text = $"Player 1 is the Winner";
+                    roundScoreText.text = $"Player 1 had {100}% and Player 2 had {20}% chance to win";
+
+                }
+                else
+                {
+
+                    roundWinnerText.text = $"Player 2 is the Winner";
+                    roundScoreText.text = $"Player 2 had {100}% and Player 1 had {20}% chance to win";
+                }
+                break;
+
+        }
     }
 }

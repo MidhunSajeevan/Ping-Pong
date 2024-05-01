@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class MenuScript : MonoBehaviour
 {
@@ -20,5 +21,17 @@ public class MenuScript : MonoBehaviour
     {
         // Replace the scene index (1) with the actual restart scene index in your build settings
         SceneManager.LoadScene(1);
+    }
+    public void PouseGame()
+    {
+        Time.timeScale = 0;
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }
